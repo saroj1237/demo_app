@@ -43,8 +43,8 @@ class _CounterPageState extends State<CounterPage> {
         });
       });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please enter valid data")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Invalid time format")));
     }
   }
 
@@ -78,13 +78,16 @@ class _CounterPageState extends State<CounterPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
-              child: Text(
-                '${myDuration.inHours}:${(myDuration.inMinutes % 60).toString().padLeft(2, '0')}:${(myDuration.inSeconds % 60).toString().padLeft(2, '0')}',
-                style: const TextStyle(fontSize: 36),
-              ),
-            ),
-            const Text("Enter duration"),
+            myDuration.inSeconds < 1
+                ? SizedBox.fromSize()
+                : Center(
+                    child: Text(
+                      '${myDuration.inHours}:${(myDuration.inMinutes % 60).toString().padLeft(2, '0')}:${(myDuration.inSeconds % 60).toString().padLeft(2, '0')}',
+                      style: const TextStyle(fontSize: 36),
+                    ),
+                  ),
+            const SizedBox(height: 16),
+            const Text("Set your duration"),
             const SizedBox(height: 8),
             TextFormField(
               controller: _controller,
@@ -98,6 +101,7 @@ class _CounterPageState extends State<CounterPage> {
                 ),
               ),
             ),
+            const SizedBox(height: 8),
             Center(
                 child: ElevatedButton(
                     onPressed: () {
