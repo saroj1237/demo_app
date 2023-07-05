@@ -60,7 +60,6 @@ class _CounterPageState extends State<CounterPage> {
 
   @override
   void dispose() {
-    _timer.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -78,14 +77,12 @@ class _CounterPageState extends State<CounterPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            myDuration.inSeconds < 1
-                ? SizedBox.fromSize()
-                : Center(
-                    child: Text(
-                      '${myDuration.inHours}:${(myDuration.inMinutes % 60).toString().padLeft(2, '0')}:${(myDuration.inSeconds % 60).toString().padLeft(2, '0')}',
-                      style: const TextStyle(fontSize: 36),
-                    ),
-                  ),
+            Center(
+              child: Text(
+                '${myDuration.inHours}:${(myDuration.inMinutes % 60).toString().padLeft(2, '0')}:${(myDuration.inSeconds % 60).toString().padLeft(2, '0')}',
+                style: const TextStyle(fontSize: 36),
+              ),
+            ),
             const SizedBox(height: 16),
             const Text("Set your duration"),
             const SizedBox(height: 8),
